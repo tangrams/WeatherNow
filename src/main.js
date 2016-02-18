@@ -53,7 +53,7 @@ function init() {
 
 var stopMovement = debounce(function() {
     updateStations();
-}, 500);
+}, 1000);
 
 function makePOIS(station) {
     if (!station.wind) {
@@ -79,7 +79,7 @@ function makePOIS(station) {
 
 function updateStations() {
     var bbox = map.getBounds();
-    var url = 'http://api.openweathermap.org/data/2.5/box/station?cluster=no&cnt=200&format=json&bbox=';
+    var url = 'http://api.openweathermap.org/data/2.5/box/station?cluster=true&cnt=200&format=json&bbox=';
     url += bbox.getNorthWest().lng + ',' +bbox.getNorthWest().lat + ',' + bbox.getSouthEast().lng + ',' + bbox.getSouthEast().lat + ',';
     url += map.getZoom();
     url += '&appid=6b75c0fa496c2aaf62eb52f8bcce7cd8'

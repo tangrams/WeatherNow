@@ -30,17 +30,20 @@ layers:
         data: { source: stations }
         draw:
             text:
+                collide: false
+                blend: overlay
+                blend_order: 0
                 offset: [0,-30px]
                 font:
                     size: 20px
                     fill: black
                     stroke: { color: white, width: 5 }
             wind:
-                size: 30px
+                blend: overlay
+                blend_order: 1
                 color: |
                     function(){
-                        var speed = feature.w_speed*10.;
-                        return [ ( Math.floor(speed/255))/255, (speed%255)/255, (feature.w_deg/360)*255 ]; 
+                        return [ 127+parseFloat(feature.name), feature.w_speed, (feature.w_deg/360)*255 ];
                     }
     roads:
         data: { source: osm, layer: roads }
@@ -227,9 +230,25 @@ styles:
                         return mat2(cos(_angle),-sin(_angle),
                                     sin(_angle),cos(_angle));
                     }
+                position: |
+                    float speed = v_color.g;
 
+                    zscale = fract(u_map_position.z) * (SCALE_8(a_shape.w) - 1.) + 1.;
+                    zscale += speed*5.;
+                    shape = SCALE_8(a_shape.xy) * zscale;     //
+                    offset = vec2(a_offset.x, -a_offset.y); // flip y to make it point down
+                    theta = radians(a_shape.z * 3.1415);
+
+                    shape = rotate2D(shape, theta);             // apply rotation to vertex
+                    shape += rotate2D(SHORT(offset), theta);  // apply offset on rotated axis (e.g. so line labels follow text axis)
+
+                    // World coordinates for 3d procedural textures
+                    v_world_position = u_model * position;
+                    v_world_position.xy += shape * u_meters_per_pixel;
+                    v_world_position = wrapWorldPosition(v_world_position);
                 color: |
-                    float speed = (color.r*255.+color.g*65025.)*.1;
+                    float temp = .5+color.r*.5;
+                    float speed = color.g;
                     float angle = color.b;
 
                     vec2 st = v_texcoord.xy;
@@ -239,4 +258,4 @@ styles:
                     st += .5;
                     float d = min(shape(st*vec2(1.5,1.)+vec2(-0.250,0.00),3),shape(st*vec2(2.,1.)+vec2(-0.500,0.200),4));
 
-                    color = vec4(1.,0.,0.,1.)*vec4(1.0-step(.2,d));
+                    color = mix(vec4(1.,0.,0.,1.),vec4(0.,0.,1.,1.),temp*4.-2.5)*vec4(1.0-step(.2,d));
