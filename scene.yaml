@@ -30,7 +30,14 @@ layers:
         data: { source: stations }
         draw:
             text:
+                text_source: |
+                    function() {
+                        return feature.temp + '°';
+                    }
                 collide: false
+                # cull_from_tile: false
+                # move_into_tile: true
+                repeat_distance: 0px
                 blend: overlay
                 blend_order: 0
                 offset: [0,-30px]
@@ -42,8 +49,8 @@ layers:
                 blend: overlay
                 blend_order: 1
                 color: |
-                    function(){
-                        return [ 127+parseFloat(feature.name), feature.w_speed, (feature.w_deg/360)*255 ];
+                    function() {
+                        return [ 127+parseFloat(feature.temp), feature.w_speed, (feature.w_deg/360)*255 ];
                     }
     roads:
         data: { source: osm, layer: roads }
@@ -205,7 +212,8 @@ styles:
                         return aastep(.5+width*0.5,abs(sin(st.y*3.14159265358)));
                     }
                 filter: |
-                    vec2 st = getTileCoords();
+                    vec2 st = gl_FragCoord.xy/u_resolution.xy; //getTileCoords();
+                    st *= 5.0;
                     float SatOsmPct = pow(1.-map(u_map_position.z,6.,9.,0.,1.),5.0);
                     color.a = stripes(st,SatOsmPct*1.4)*.5;
     wind:

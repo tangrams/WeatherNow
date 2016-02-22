@@ -66,8 +66,8 @@ function makePOIS(station) {
                     coordinates: [station.coord.lon, station.coord.lat]
                 },
                 properties: {
-                    // name: station.name,
-                    name: station.main.temp,
+                    name: station.name,
+                    temp: station.main.temp,
                     pressure: station.main.pressure,
                     humidity: station.main.humidity,
                     w_speed: station.wind.speed,
