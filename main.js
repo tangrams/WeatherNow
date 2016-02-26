@@ -3,7 +3,7 @@ map = (function () {
     'use strict';
 
     // Default map location
-    var map_start_location = [0, 0, 3];
+    var map_start_location = [39.825, -98.170, 5];
 
     // Parse URL hash looking for a map location
     var url_hash = window.location.hash.slice(1).split('/');
@@ -129,11 +129,11 @@ function makePOIs(station) {
             },
             properties: {
                 name: station.name,
-                temp: station.main.temp,
-                pressure: station.main.pressure,
-                humidity: station.main.humidity,
-                w_speed: station.wind.speed,
-                w_deg: station.wind.deg, 
+                temp: station.main ? station.main.temp || 0.0 : 0.0,
+                pressure: station.main ? station.main.pressure || 0.0 : 0.0,
+                humidity: station.main ? station.main.humidity || 0.0 : 0.0,
+                w_speed: station.main ? station.wind.speed || 0.0 : 0.0,
+                w_deg: station.wind ? station.wind.deg || 0.0 : 0.0, 
                 kind: 'station'
             }
         };

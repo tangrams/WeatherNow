@@ -45,8 +45,9 @@ layers:
                 blend_order: 1
                 color: |
                     function() {
-                        return [ 127+parseFloat(feature.temp), feature.w_speed, (feature.w_deg/360)*255 ];
+                        return [ 127+parseFloat(feature.temp), feature.humidity, (feature.w_deg/360)*255 ];
                     }
+                size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
     roads:
         data: { source: osm, layer: roads }
         filter: { $zoom: {min: 7}, not: { highway: service, kind: rail } }
@@ -224,32 +225,23 @@ styles:
                         float r = TWO_PI/float(N);
                         return cos(floor(.5+a/r)*r-a)*length(st);
                     }
-                position: |
-                    float speed = v_color.g;
-
-                    zscale = fract(u_map_position.z) * (SCALE_8(a_shape.w) - 1.) + 1.;
-                    zscale += speed*5.;
-                    shape = SCALE_8(a_shape.xy) * zscale;     //
-                    offset = vec2(a_offset.x, -a_offset.y);   // flip y to make it point down
-                    theta = radians(a_shape.z * 3.1415);
-
-                    shape = rotate2D(shape, theta);           // apply rotation to vertex
-                    shape += rotate2D(SHORT(offset), theta);  // apply offset on rotated axis (e.g. so line labels follow text axis)
-
-                    // World coordinates for 3d procedural textures
-                    v_world_position = u_model * position;
-                    v_world_position.xy += shape * u_meters_per_pixel;
-                    v_world_position = wrapWorldPosition(v_world_position);
                 color: |
+                    
                     float temp = .5+color.r*.5;
-                    float speed = color.g;
+                    float humidity = color.g;
                     float angle = color.b;
 
-                    vec2 st = v_texcoord.xy;
-                    st -= .5;
-                    st = rotate2D(angle*PI)* st;
-                    st *= .62;
-                    st += .5;
-                    float d = min(shape(st*vec2(1.5,1.)+vec2(-0.250,0.00),3),shape(st*vec2(2.,1.)+vec2(-0.500,0.200),4));
+                    // Ignore wind blowing at 0.0 degrees. Probably is an error
+                    if (angle != 0.0) {
+                        vec2 st = v_texcoord.xy;
+                        st -= .5;
+                        st = rotate2D(angle*PI)* st;
+                        st *= .62;
+                        st += .5;
+                        float d = min(shape(st*vec2(1.5,1.)+vec2(-0.250,0.00),3),shape(st*vec2(2.,1.)+vec2(-0.500,0.200),4));
 
-                    color = mix(vec4(1.,0.,0.,1.),vec4(0.,0.,1.,1.),temp*4.-2.5)*vec4(1.0-step(.2,d));
+                        color = mix(vec4(1.,0.,0.,1.),vec4(0.,0.,1.,1.),temp*4.-2.5)*vec4(1.0-step(.2,d));
+                    } else {
+                        color.a = 0.0;
+                    }
+                    
