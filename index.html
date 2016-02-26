@@ -5,50 +5,64 @@
     http://mapzen.com
 -->
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>OpenWeatherMap</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Tangram - OpenWeatherMap</title>
+        <style>
+            body {
+                margin: 0px;
+                border: 0px;
+                padding: 0px;
+                overflow: hidden;
+            }
 
-    <!-- <link rel="stylesheet" href="css/leaflet.css" /> -->
-    <link href='https://fonts.googleapis.com/css?family=Jura:400,300,600,500&subset=latin,cyrillic-ext,greek,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+            #map {
+                position: absolute;
+                background: black;
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                z-index: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
 
-    <link type='text/css' rel='stylesheet' href="css/style.css">
-  </head>
+        <!-- 3rd party libraries -->
+            <!-- Leaflet -->
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.css" />
+            <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v1.0.0-beta.2/leaflet.js"></script>
 
-  <body>
-    <div id="map"></div>
+            <!-- Leaflet URL hash -->
+            <script type="text/javascript" src="https://rawgit.com/mlevans/leaflet-hash/master/leaflet-hash.js"></script>
 
-    <!-- 3rd party libraries -->
-    <link rel="stylesheet" href="css/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
-<!--     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script> -->
-    <!-- bog-standard leaflet URL hash -->
-    <script src="src/leaflet-hash.js"></script>
+            <!-- Tangram -->
+            <script type="text/javascript" src="https://mapzen.com/tangram/0.5/tangram.min.js"></script>
 
-    <!-- Tangram library -->
-    <script src="https://mapzen.com/tangram/0.5/tangram.min.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/tangrams/data2image/gh-pages/build/Data2Image.min.js"></script>
-    <!-- End of 3rd party libraries -->
+            <!-- Fetch -->
+            <script type="text/javascript" src="https://rawgit.com/github/fetch/master/fetch.js"></script>
+        <!-- End of 3rd party libraries -->
 
-    <!-- MAIN -->
-    <script src="src/main.js"></script>
+        <!-- MAIN -->
+        <script src="main.js"></script>
 
-    <!-- Adding a script block to post message to the parent container (think iframed demos) -->
-    <script type="text/javascript">
-      window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
-    </script>
+        <!-- Adding a script block to post message to the parent container (think iframed demos) -->
+        <script type="text/javascript">
+            window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
+        </script>
 
-    <!-- Mapzen map UI -->
-    <script src='https://mapzen.com/common/ui/mapzen-ui.min.js'></script>
-    <script>
-    MPZN.bug({
-        name: 'Tangram',
-        tweet: 'Track live satellites, powered by @mapzen!',
-        repo: 'https://github.com/tangrams/tangram/'
-    });
-    </script>
-  </body>
+        <!-- Mapzen map UI -->
+        <script src='https://mapzen.com/common/ui/mapzen-ui.min.js'></script>
+        <script>
+            MPZN.bug({
+                name: 'Tangram',
+                tweet: 'Track live satellites, powered by @mapzen!',
+                repo: 'https://github.com/tangrams/tangram/'
+            });
+        </script>
+    </body>
 </html>

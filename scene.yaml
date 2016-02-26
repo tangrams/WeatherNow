@@ -1,12 +1,9 @@
-﻿# Author @patriciogv - 2015
+﻿# Author @patriciogv - 2016
 
 sources:
     osm:
         type: TopoJSON
         url:  https://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-Nhm6Mkg
-scene:
-    background: 
-        color: '#020303'
 layers:
     earth:
         data: { source: osm }
@@ -35,8 +32,6 @@ layers:
                         return feature.temp + '°';
                     }
                 collide: false
-                # cull_from_tile: false
-                # move_into_tile: true
                 repeat_distance: 0px
                 blend: overlay
                 blend_order: 0
@@ -174,11 +169,10 @@ styles:
     geometry-matrices:
         shaders:
             defines:
-                PI: 3.14159265358979323846
+                PI: 3.141592653589793
+                TWO_PI: 6.28318530718
             blocks:
                 global: |
-                    // Rotate in 2, 3 and 4 dimensions
-                    // ================================
                     mat2 rotate2D (float angle) {
                         return mat2(cos(angle),-sin(angle),
                                     sin(angle),cos(angle));
@@ -220,23 +214,15 @@ styles:
         base: points
         texcoords: true
         animated: true
-        mix: functions-aastep
+        mix: [functions-aastep, geometry-matrices]
         shaders: 
             blocks: 
                 global: |
-                    #define PI 3.14159265359
-                    #define TWO_PI 6.28318530718
-
                     float shape(vec2 st, int N){
                         st = st *2.-1.;
                         float a = atan(st.x,st.y)+PI;
                         float r = TWO_PI/float(N);
                         return cos(floor(.5+a/r)*r-a)*length(st);
-                    }
-
-                    mat2 rotate2d(float _angle){
-                        return mat2(cos(_angle),-sin(_angle),
-                                    sin(_angle),cos(_angle));
                     }
                 position: |
                     float speed = v_color.g;
@@ -244,10 +230,10 @@ styles:
                     zscale = fract(u_map_position.z) * (SCALE_8(a_shape.w) - 1.) + 1.;
                     zscale += speed*5.;
                     shape = SCALE_8(a_shape.xy) * zscale;     //
-                    offset = vec2(a_offset.x, -a_offset.y); // flip y to make it point down
+                    offset = vec2(a_offset.x, -a_offset.y);   // flip y to make it point down
                     theta = radians(a_shape.z * 3.1415);
 
-                    shape = rotate2D(shape, theta);             // apply rotation to vertex
+                    shape = rotate2D(shape, theta);           // apply rotation to vertex
                     shape += rotate2D(SHORT(offset), theta);  // apply offset on rotated axis (e.g. so line labels follow text axis)
 
                     // World coordinates for 3d procedural textures
@@ -261,7 +247,7 @@ styles:
 
                     vec2 st = v_texcoord.xy;
                     st -= .5;
-                    st = rotate2d(angle*PI)* st;
+                    st = rotate2D(angle*PI)* st;
                     st *= .62;
                     st += .5;
                     float d = min(shape(st*vec2(1.5,1.)+vec2(-0.250,0.00),3),shape(st*vec2(2.,1.)+vec2(-0.500,0.200),4));
