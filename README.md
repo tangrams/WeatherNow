@@ -1,5 +1,7 @@
 ## Using private APIs on Tangram
 
+Hi there! This is a tutorial is a walk through
+
 This is an example of how to use [Mapzen's Tangram map engine](https://github.com/tangrams/tangram) together with another private API.
 
 ## Install a local version of this project
