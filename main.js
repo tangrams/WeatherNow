@@ -1,17 +1,7 @@
 // Init tangram
 map = (function () {
     'use strict';
-
-    // Default map location
-    var map_start_location = [39.825, -98.170, 5];
-
-    // Parse URL hash looking for a map location
-    var url_hash = window.location.hash.slice(1).split('/');
-    if (url_hash.length == 3) {
-        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
-        map_start_location = map_start_location.map(Number);
-    }
-
+    
     // Create a Leaflet Map
     var map = L.map('map',{
         trackResize: true,
@@ -30,7 +20,7 @@ map = (function () {
     var scene = layer.scene;
     window.scene = scene;
 
-    map.setView(map_start_location.slice(0, 2), map_start_location[2]);
+    map.setView([39.825, -98.170], 5); // Default map location
     var hash = new L.Hash(map);
 
     /***** Render loop *****/

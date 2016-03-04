@@ -110,11 +110,6 @@ layers:
                 lines:
                     color: [0.8, 0.8, 0.8]
                     width: [[14,.1px],[16,.5px], [17, 2m]]
-        z-order:
-            filter: { $zoom: {min: 14} }
-            draw:
-                spline:
-                    order: function() {return 6 + feature.sort_key;}
 cameras:
     perspective:
         type: perspective
