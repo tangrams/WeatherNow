@@ -13,7 +13,7 @@ map = (function () {
     // Create a Tangram Layer
     var layer = Tangram.leafletLayer({
         scene: 'scene.yaml',
-        attribution: '<a href="https://twitter.com/patriciogv" target="_blank">@patriciogv</a> | <a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+        attribution: '<a href="http://openweathermap.org/" target="_blank">OpenWeatherMap</a> | <a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
     });
 
     window.layer = layer;
@@ -23,7 +23,7 @@ map = (function () {
     map.setView([39.825, -98.170], 5); // Default map location
     var hash = new L.Hash(map);
 
-    /***** Render loop *****/
+    /***** Once the page is loaded is time to initialize the routines that handles the interaction *****/
     window.addEventListener('load', function () {
         init();
     });
@@ -38,7 +38,7 @@ function init() {
     map.on('moveend', debounce(function() {
         // Update the displayed information
         update();
-    }, 500));
+    }, 1000));
 
     // Add Tangram `layer` to Leaflet `map`
     layer.addTo(map);

@@ -10,27 +10,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>Tangram - OpenWeatherMap</title>
-        <style>
-            body {
-                margin: 0px;
-                border: 0px;
-                padding: 0px;
-                overflow: hidden;
-            }
-
-            #map {
-                position: absolute;
-                background: black;
-                height: 100%;
-                width: 100%;
-                margin: 0px;
-                padding: 0px;
-                z-index: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="map"></div>
 
         <!-- 3rd party libraries -->
             <!-- Leaflet -->
@@ -47,7 +26,29 @@
             <script type="text/javascript" src="https://rawgit.com/github/fetch/master/fetch.js"></script>
         <!-- End of 3rd party libraries -->
 
-        <!-- MAIN -->
+        <style>
+            body {
+                margin: 0px;
+                border: 0px;
+                padding: 0px;
+                overflow: hidden;
+            }
+
+            #map {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+                z-index: 0;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!-- The Map it self -->
+        <div id="map"></div>
         <script src="main.js"></script>
 
         <!-- Adding a script block to post message to the parent container (think iframed demos) -->
@@ -60,8 +61,8 @@
         <script>
             MPZN.bug({
                 name: 'Tangram',
-                tweet: 'Track live satellites, powered by @mapzen!',
-                repo: 'https://github.com/tangrams/tangram/'
+                tweet: 'Check this tutorial about Tangram & 3er Party API cc @mapzen!',
+                repo: 'https://github.com/tangrams/OWM'
             });
         </script>
     </body>
