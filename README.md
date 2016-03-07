@@ -601,5 +601,64 @@ That's it! Our data is in the way to the GPU and into the fragment shader where 
 
 #### Using GLSL to visualize data
 
+As you probably know, one of the most flexible features of Tangram is be hable to inject blocks of GLSL Shader code into the pipeline of a style. You can learn more about it here in the [Shaders overview](https://mapzen.com/documentation/tangram/Shaders-Overview/) of Tangram Documentations. If you are totaly new to GLSL Shaders we higly recomend you to check [The Book of Shaders](http://thebookofshaders.com/).
+
+So let's make some sense of this data and draw an arrow visualizing the flow of the wind and the temperature of it. To recap from last section the color was encoded into the RED, GREEN and BLUE channels on the CPU. Each channel with a range between 0 and 255, but inside the shader this color will be transform to a range from 0 to 1  per channel in the ```vec3``` name ```color```. This color comes with the geometry that was constructed in the previus section.
+
+Our first job to do here is to **decode** the values to something we can work with. The one that needs more retouch is the temperature witch we need to move it back to something that holds negative and positive numbers. We practically didn't encode the humidty so it makes more sense to do nothing with it so we can leave it normalized. With the direction of the wind
+
+```glsl
+    float temp = .5+color.r*.5;
+    float humidity = color.g;
+    float w_deg = color.b*PI;
+```
+
+Not all the stations have a wind degree value, those cases return a perfect 0. Very unlikly for a wind to blow in perfect North direction so probably we can filter those out.
+
+```glsl
+    // Ignore wind blowing at 0.0 degrees. Probably is an error
+    if (w_deg != 0.0)
+```
+
+The rest of the code is a nice little arrow I'm drawing using some [distance fields functions](http://thebookofshaders.com/07/)
+
+Check an [example of it here](http://editor.thebookofshaders.com/?log=160307211846)
+
+With some little ajustments our arrows will be pointing in the right direction and correctly colored. The final style block look like this:
+
+```yaml
+    wind:
+        base: points
+        texcoords: true
+        animated: true
+        mix: [functions-aastep, geometry-matrices]
+        shaders: 
+            blocks: 
+                global: |
+                    float shape(vec2 st, int N){
+                        st = st *2.-1.;
+                        float a = atan(st.x,st.y)+PI;
+                        float r = TWO_PI/float(N);
+                        return cos(floor(.5+a/r)*r-a)*length(st);
+                    }
+                color: |
+                    
+                    float temp = .5+color.r*.5;
+                    float humidity = color.g;
+                    float w_deg = color.b*PI;
+
+                    // Ignore wind blowing at 0.0 degrees. Probably is an error
+                    if (w_deg != 0.0) {
+                        vec2 st = v_texcoord.xy;
+                        st -= .5;
+                        st = rotate2D(w_deg)* st;
+                        st *= .62;
+                        st += .5;
+                        float d = min(shape(st*vec2(1.5,1.)+vec2(-0.250,-0.07),3),shape(st*vec2(2.,1.)+vec2(-0.500,0.100),4));
+                        color = mix(vec4(1.,0.,0.,1.),vec4(0.,0.,1.,1.),temp*4.-2.5)*vec4(1.0-step(.2,d));
+                    } else {
+                        color.a = 0.0;
+                    }
+```
 
 
