@@ -23,34 +23,6 @@ layers:
             area:
                 order: 3
                 color: [0.443, 0.434, 0.434]
-    station:
-        data: { source: stations }
-        draw:
-            text:
-                # Print the temperature (°C) instad of the actual name of the station 
-                text_source: |
-                    function() {
-                        return feature.temp + '°';
-                    }
-                # Suspend label collitions and repetition checking
-                collide: false
-                repeat_distance: 0px
-                # Show over all
-                blend: overlay
-                blend_order: 0
-                offset: [0,-30px]
-                font:
-                    size: 20px
-                    fill: black
-                    stroke: { color: white, width: 5 }
-            wind:
-                blend: overlay
-                blend_order: 1
-                color: |
-                    function() {
-                        return [ 127+parseFloat(feature.temp), feature.humidity, (feature.w_deg/360)*255 ];
-                    }
-                size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
     roads:
         data: { source: osm, layer: roads }
         filter: { $zoom: {min: 7}, not: { highway: service, kind: rail } }
@@ -110,6 +82,35 @@ layers:
                 lines:
                     color: [0.8, 0.8, 0.8]
                     width: [[14,.1px],[16,.5px], [17, 2m]]
+    station:
+        data: { source: stations }
+        draw:
+            text:
+                # Print the temperature (°C) instad of the actual name of the station 
+                text_source: |
+                    function() {
+                        return feature.temp + '°';
+                    }
+                # Suspend label collitions and repetition checking
+                collide: false
+                repeat_distance: 0px
+                # Show over all
+                blend: overlay
+                blend_order: 0
+                offset: [0,-30px]
+                font:
+                    size: 20px
+                    fill: black
+                    stroke: { color: white, width: 5 }
+            wind:
+                blend: overlay
+                blend_order: 1
+                size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
+                color: |
+                    function() {
+                        return [ 127+parseFloat(feature.temp), feature.humidity, (feature.w_deg/360)*255 ];
+                    }
+               
 cameras:
     perspective:
         type: perspective
@@ -200,15 +201,14 @@ styles:
             blocks: 
                 global: |
                     float stripes(vec2 st, float width){
-                        st = rotate2D(0.6)*st;
-                        st *= 92.;
+                        st = rotate2D(0.78539816339)*st;
+                        st *= 29.7;
                         return aastep(.5+width*0.5,abs(sin(st.y*3.14159265358)));
                     }
                 filter: |
-                    vec2 st = gl_FragCoord.xy/u_resolution.xy; //getTileCoords();
-                    st *= 5.0;
-                    float SatOsmPct = pow(1.-map(u_map_position.z,6.,9.,0.,1.),5.0);
-                    color.a = stripes(st,SatOsmPct*1.4)*.5;
+                    vec2 st = getTileCoords();
+                    float pct = pow(1.-map(u_map_position.z,6.,20.,0.,1.),5.0);
+                    color.a = stripes(st,pct*1.4)*.5;
     wind:
         base: points
         texcoords: true

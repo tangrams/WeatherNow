@@ -388,6 +388,218 @@ Let's jump to the ```scene.yaml``` and our last stop into this adventure.
 
 ### What's ```scene.yaml``` telling Tangram to do?
 
+Here we are in the ```scene.yaml```! We made it! but... seams this journey is just beginning. I know the ```scene.yaml``` seams to have lot of cryptic lines. Let's go step by step and you will see that actually everything makes more sense.
+
+#### Sources
+
+```yaml
+sources:
+    osm:
+        type: TopoJSON
+        url:  https://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=[API_KEY] 
+```
+
+In this first block we define our [OpenStreetMap](http://www.openstreetmap.org/) vector data source call ```osm```. As you can see this data actually is comming form our servers, is our speciall tiled blend of [OpenStreetMap](http://www.openstreetmap.org/) data. [Here is a nice documentation](https://mapzen.com/documentation/vector-tiles/) about it if you want to learn more of it.
+
+This data comming in [```TopoJSON```](https://en.wikipedia.org/wiki/GeoJSON#TopoJSON) another open GEO standar. The url is formated to load all the tiles in ```x```, ```y``` and ```z```. and also note that we are adding an api_key at the end. Our API keys are totally free and unlimited. Wonderfull right? Takes yours [here](https://mapzen.com/developers/sign_in) and replace the ```[API_KEY]``` holder with yours.
+
+This will be enought to make the map.
+
+But... Wait a minute! Where is the OpenWeaderMap data that we parse and format in JavaScript? 
+Nice observation! Well we don't really need it here. Because is not a file there is not point to load it, we are passing it directly from the ```main.js``` in each ```update()``` call. If you look up you will notice that we are setting that data source under the name ```stations``` and it contain a ```FeatureCollection``` of ```Points``` each one with the ```kind``` set in ```station```.
+
+#### Layers
+
+Inmediatly after defining the source we will make some rules to split the content of each tile in different ```layers```. 
+
+Most of the ```layers``` are preatty standar. You already have seen different rules similar to this ones:
+
+```yaml
+layers:
+    earth:
+        data: { source: osm }
+        draw:
+            polygons:
+                order: 1
+                color: [0.293, 0.300, 0.297]
+    water:
+        data: { source: osm }
+        draw:
+            polygons:
+                order: 2
+                color: [0.688, 0.695, 0.695]
+    roads:
+        data: { source: osm, layer: roads }
+        filter: { $zoom: {min: 7}, not: { highway: service, kind: rail } }
+        draw:
+            lines:
+                order: 7
+                color: [.7,.7,.7]
+                width: [[6,0px], [7,.25px], [10, .5px], [15, .75px], [17, 5m]]
+        highway:
+            filter: { kind: highway }
+            draw:
+                lines:
+                    order: 8
+                    color: [.8,.8,.8]#[1.000,0.897,0.058]
+                    width: [[1,0px], [6,.25px], [11, 2px], [14, 3px], [16, 4px], [17, 10m]]
+            link:
+                filter: { is_link: yes } # on- and off-ramps, etc
+                draw:
+                    lines:
+                        color: [.7,.7,.7]#[1.000,0.933,0.710]
+                        width: [[10,0px], [14, 3px], [16, 5px], [18, 10m]]
+                tunnel-link:
+                    filter: {is_tunnel: yes, $zoom: {min: 13} }
+                    draw:
+                        lines:
+                            color: [.5,.5,.5]#[0.805,0.748,0.557]
+            tunnel:
+                filter: {is_tunnel: yes, $zoom: {min: 13} }
+                draw:
+                    lines:
+                        order: 5
+                        color: [.5,.5,.5]#[0.805,0.748,0.557]
+        major_road:
+            filter: { kind: major_road }
+            draw:
+                lines:
+                    color: [[13, [.6,.6,.6]], [17, white]]
+                    width: [[1,0px], [6,.5px], [11,1px], [14, 2px], [16, 2.5px], [19, 8m]]
+                    primary:
+                        filter: { highway: primary }
+                        draw:
+                            lines:
+                                width: [[1,0px], [6,.5px], [11,1px], [11, 1.5px], [13, 2.5px], [16, 2.5px], [19, 8m]]
+                    secondary:
+                        filter: { highway: secondary }
+                        draw:
+                            lines:
+                                width: [[1,0px], [6,.5px], [11,1px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [19, 8m]]
+                    tertiary:
+                        filter: { highway: tertiary }
+                        draw:
+                            lines:
+                                width: [[1,0px], [6,.5px], [11,1px], [13, .75px], [14, 2.5px], [16, 2.5px], [19, 8m]]
+        path:
+            filter: { kind: path }
+            draw:
+                lines:
+                    color: [0.8, 0.8, 0.8]
+                    width: [[14,.1px],[16,.5px], [17, 2m]]
+    landuse:
+        data: { source: osm }
+        draw:
+            area:
+                order: 3
+                color: [0.443, 0.434, 0.434]
+```
+
+In few words we are drawing ```earth``` as ```poligons``` in a dark gray color, ```water``` as ```poligons``` in a light gray, different types of ```roads``` as ```lines``` with different configuration of ```order```, ```width``` and ```color```.
+
+We are going to draw ```landuse``` specially with a stutle stripe pattern defined in the ```style``` call ```area```.
+
+```yaml
+styles:
+    ...
+    area:
+        base: polygons
+        mix: [geometry-matrices, functions-map, functions-aastep, space-tile]
+        blend: inlay
+        shaders: 
+            blocks: 
+                global: |
+                    float stripes(vec2 st, float width){
+                        st = rotate2D(0.78539816339)*st;
+                        st *= 29.7;
+                        return aastep(.5+width*0.5,abs(sin(st.y*3.14159265358)));
+                    }
+                filter: |
+                    vec2 st = getTileCoords();
+                    float pct = pow(1.-map(u_map_position.z,6.,20.,0.,1.),5.0);
+                    color.a = stripes(st,pct*1.4)*.5;
+```
+
+Which as you mix some functions from other styles like libraries, defines a glsl function call ```stripes``` and use it as a ```filter```. The nice detail about this effect is that vary the lenght of the stripe pattern depending the zoom level so you will see it more clearly while you zoom in. This animation transition is very visible between zoom 6 and 9.
+
+Up to here is a regular map. We are doing nothing with to visualize the weather station data. Let's start for analizing the layer for the weather ```stations```:
+
+```yaml
+layers:
+    ...
+    station:
+        data: { source: stations }
+        draw:
+            text:
+                # Print the temperature (°C) instad of the actual name of the station 
+                text_source: |
+                    function() {
+                        return feature.temp + '°';
+                    }
+                # Suspend label collitions and repetition checking
+                collide: false
+                repeat_distance: 0px
+                # Show over all
+                blend: overlay
+                blend_order: 0
+                offset: [0,-30px]
+                font:
+                    size: 20px
+                    fill: black
+                    stroke: { color: white, width: 5 }
+            wind:
+                blend: overlay
+                blend_order: 1
+                size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
+                color: |
+                    function() {
+                        return [ 127+parseFloat(feature.temp), feature.humidity, (feature.w_deg/360)*255 ];
+                    }
+```
+
+We start by seting the name of this layer to match the ```kind``` we want to filter from the data source ```stations```. Tangram does this automatically, but there are ways to force to pick up a specific kind if you prefere. For more information about this see [Styles Overview](https://mapzen.com/documentation/tangram/Styles-Overview/) and [layers](https://mapzen.com/documentation/tangram/layers/).
+
+Then we specify that for this data we want to render two things: ```text``` label and a ```wind``` arrow.
+
+#### Drawing text
+
+Inside the ```text``` node which calls the native ```text``` render style we are going to fix the ```text_source``` to a JavaScript function. This function is going to populate the strings for each one of the displayed ```Points``` present on the GeoJSON file we constructed. The function in it self doesn't do to much, just add's the degree simbol ```°``` at the end of each temperature number. The rest of the rules are to set the style, like the ```font``` and ```offset```. We are turning the collition and repetition checking off. We actually want to see all the entries and we don't worry if the labels get overlaped.
+
+##### Visualizing data
+
+To display the wind we are going to take a more advance and less standar aproach. After all, we made it up to here and I don't want you to go home with enought to think about. 
+
+We are going to make a special drawing ```style``` call ```wind``` wich we will se in detail soon. What is important to take about this section is that we are going to use the data in a way that allow us to make sense of it visually.  
+
+- First we are going to set the size of what will be our arrow to match the speed of the wind.
+
+```yaml
+    size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
+```
+
+We do this with another JavaScript function the will return a size between 20 and 40 pixesl depending on the value of ```feature.w_speed```. ```feature``` relates to the GeoJSON Point structure we define in ```makePOIs()``` inside ```main.js```. 
+The use of ```Math.pow()``` is a way to make the transition of size non linear and visually more pleasent.
+
+- Second we will **encode** some of the rest of the weather station data into the color of the geometry. More precisly the ```temp``` (temperature) will be store in the **RED** channel, the ```humidity``` in **GREEN**, and the ```w_deg``` (wind degree) into the **BLUE**.
+
+```yaml
+    color: |
+            function() {
+                return [ 127+parseFloat(feature.temp), feature.humidity, (feature.w_deg/360)*255 ];
+            }
+```
+
+Because each color channel have a range between 0 and 255 we are encoding each value differently.
+
+1) The temperature in Celsius can go in negative numbers easily so we shift all the range a half the range so temperatures can go from -127 to 127. Note that in the channel will be pass always as a positive number. 0 celsius will be 127, 1 celsius will be 128 while -1 celsius will be 126. Hope this makes sense to the reader.
+
+2) The humidity doesn't need so much treat as directly pass to the green channel.
+
+3) The wind degree probably represent the most complicated conversion. Because the range goes from 0 to 360, we need to normalize that range by divide it by the total (360) so we end up with a number from 0 to 1. Then we scale that range to the standar 0 to 255.
+
+That's it! Our data is in the way to the GPU and into the fragment shader where we will draw something nice with it.
+
+#### Using GLSL to visualize data
 
 
 
