@@ -1,4 +1,4 @@
-## Using private APIs on Tangram
+## Using 3er Party APIs on Tangram
 
 This guide provides a case scenario of how to use [Tangram maps engine](https://github.com/tangrams/tangram) with other 3er party APIs.
 
@@ -27,11 +27,11 @@ Take a moment to look the files inside this repository and how they relate to ea
 
 You will note:
 
-- There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responses to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
+- There is a **JS file** (```main.js```) file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responses to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
 
-- The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the map and make sense of the weather station data.
+- The **YAML file** (```scene.yaml```) is a scene file that will tell Tangram.js how to style the map and make sense of the weather station data.
 
-- the HTML (```index.html```) is the glue that holds all together. Contains a ```<div>``` holder for the map, a minimal amount of CSS styling together with the calls to the Java Script files needed for this project.
+- the **HTML file** (```index.html```) is the glue that holds all together. Contains a ```<div>``` holder for the map, a minimal amount of CSS styling together with the calls to the Java Script files needed for this project.
 
 The rest of the files on this repository are not strictly necessary for this example.
 
@@ -67,13 +67,13 @@ This is our tool box. The set of libraries (hosted somewhere else) that we are g
 
 Which are they? and what they do?
 
-- [Leaflet](http://leafletjs.com/) this leading open-source JavaScript library for interactive maps is probably one of our best friends. It was a big community around it. Is easy to use, well documented and incredible flexible. Note how we are adding  both ```leaflet.js``` and ```leaflet.css``` of the version ```v1.0.0-beta.2```.
+- [**Leaflet**](http://leafletjs.com/) this leading open-source JavaScript library for interactive maps is probably one of our best friends. It was a big community around it. Is easy to use, well documented and incredible flexible. Note how we are adding  both ```leaflet.js``` and ```leaflet.css``` of the version ```v1.0.0-beta.2```.
 
-- [Michael Lawrence Evans's](https://github.com/mlevans) [Leaflet Hash plugin](https://github.com/mlevans/leaflet-hash) adds dynamic URL hashes to Leaflet maps. In other words will let us easily link users to specific map views.
+- [Michael Lawrence Evans's](https://github.com/mlevans) [**Leaflet Hash plugin**](https://github.com/mlevans/leaflet-hash) adds dynamic URL hashes to Leaflet maps. In other words will let us easily link users to specific map views.
 
-- [Tangram](https://mapzen.com/projects/tangram) ```0.5``` version. Our beloved and flexible browser-based mapping engine, designed for real-time rendering of 2D and 3D maps from vector tiles [Read more here](https://mapzen.com/documentation/tangram/).
+- [**Tangram**](https://mapzen.com/projects/tangram) ```0.5``` version. Our beloved and flexible browser-based mapping engine, designed for real-time rendering of 2D and 3D maps from vector tiles [Read more here](https://mapzen.com/documentation/tangram/).
 
-- [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a more powerful and flexible coming version of [```XMLRequest```](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). Because is not supported by all browsers yet  we are using [Github's polyfill](https://github.com/github/fetch) of it. Hopefully in a near future this will not be necessary.
+- [**Fetch**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a more powerful and flexible coming version of [```XMLRequest```](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). Because is not supported by all browsers yet  we are using [Github's polyfill](https://github.com/github/fetch) of it. Hopefully in a near future this will not be necessary.
 
 #### Styling
 
@@ -97,7 +97,9 @@ Which are they? and what they do?
         </style>
 ```
 
-The main concern here is to use all the space on your browser to display the map. Note that the map is going to be placed on the ```<div>``` element with the ```id``` name ```map```.
+The main duty here is to use all the space on your browser to display the map. 
+
+**Note**: the map is going to be placed on the ```<div>``` element with the ```id``` name ```map```.
 
 #### The beating heart
 
@@ -106,9 +108,9 @@ The main concern here is to use all the space on your browser to display the map
     <script src="main.js"></script>
 ```
 
-As we said previously the [Leaflet](http://leafletjs.com/) map with the [Tangram](https://mapzen.com/projects/tangram) layer is going to be loaded inside the ```<div>``` element with the ```map``` id. Where and when that happens immediately after the ```<div>``` is created the ```main.js``` script is loaded. Soon we will see what this  Java Script do.
+As we said previously the [Leaflet](http://leafletjs.com/) map with the [Tangram](https://mapzen.com/projects/tangram) layer is going to be loaded inside the ```<div>``` element with the ```map``` id. Where and when that happens immediately after the ```<div>``` is created the ```main.js``` script is loaded. Soon we will see what this Java Script do.
 
-#### Some Mapzen's standard features
+#### Mapzen's standard features
 
 The rest of the HTML code in ```index.html``` are a bunch of standard lines we add to all our demos.
 
