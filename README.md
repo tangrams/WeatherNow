@@ -27,9 +27,9 @@ Take a moment to look the files inside this repository and how they relate to ea
 
 You will note:
 
-- There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and on top of it a [Tangram Layer](https://github.com/tangrams/tangram). Also this files is going to make the API calls to [OpenWeatherMap's API](http://openweathermap.org/api) every time the user move the map requesting information about the stations inside the map viewport area. The responces to this calls are transformed into a [GeoJSON](http://geojson.org/) to finnally pass it to [Tangram](https://github.com/tangrams/tangram) for rendered and display. 
+- There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responces to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
 
-- The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the map and more importantly in this case how to make sense of the data that is passed along.
+- The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the mapand make sense of the weather station data.
 
 - the HTML (```index.html```) is the glue that holds all together. Contains a minimal amount of CSS styling together to the calls to the Java Script files needed for this project.
 
