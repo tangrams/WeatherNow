@@ -2,7 +2,7 @@
 
 This guide provides a case scenario of how to use [Tangram maps engine](https://github.com/tangrams/tangram) with other 3er party APIs.
 
-It's writed for an audience with some technically knowladge about Java Script, [OpenStreetMap](http://leafletjs.com/) data and [our vector tiles](https://mapzen.com/projects/vector-tiles). We will also be asuming you already have some basic experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! The best place to start is looking arround the examples on [TangramPlay](https://mapzen.com/tangram/play/) and on [Tangram Documentation](https://mapzen.com/documentation/tangram/) following this nice [walkthrought of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
+It's writed for an audience with some technically knowladge about Java Script, [OpenStreetMap](http://leafletjs.com/) data and [our vector tiles](https://mapzen.com/projects/vector-tiles). It is best if you have some previus experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! A good place to start is by looking arround the examples on [TangramPlay](https://mapzen.com/tangram/play/) and reading [Tangram Documentation](https://mapzen.com/documentation/tangram/) specially following this nice [walkthrought of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
 
 Also feel free to clone this repository in your computer, run it as a local server and make it your own. Tweaking and modifying is the best way to learn. How?
 
@@ -17,9 +17,9 @@ If that doesn’t work, try:
 python -m http.server 8000
 ```
 
-To view the content on your browser navigate to: [http://localhost:8000](http://localhost:8000)
+To view the content on your browser, navigate to: [http://localhost:8000](http://localhost:8000)
 
-This example use a [OpenWeatherMap's API](http://openweathermap.org/api) with a free API Key. In case you get far away there is the chance you run out of calls to the servers. In that case is probably time to get your own free API key.
+***Note:*** Please have in mind that this example use one free API Key for [OpenWeatherMap service](http://openweathermap.org/api), if you get far away using it, there is the chance you run out of calls to the servers. In that case is probably time to get your own free API key.
  
 ### Before starting 
 
