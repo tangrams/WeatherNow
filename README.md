@@ -29,16 +29,16 @@ You will note:
 
 - There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responces to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
 
-- The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the mapand make sense of the weather station data.
+- The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the map and make sense of the weather station data.
 
-- the HTML (```index.html```) is the glue that holds all together. Contains a minimal amount of CSS styling together to the calls to the Java Script files needed for this project.
+- the HTML (```index.html```) is the glue that holds all together. Contains a ```<div>``` holder for the map, a minimal amount of CSS styling together with the calls to the Java Script files needed for this project.
 
-The rest of the files on this repository are not part of the example. 
+The rest of the files on this repository are not strictly necesary for this example.
 
 - The ```README.md``` is the guide you are reading.
-- The ```LICENSE``` file is just the [MIT License](https://opensource.org/licenses/MIT) we add to all our work here at [Mapzen](https://mapzen.com/) as part of our OpenSource & OpenData commitment.
+- The ```LICENSE``` file is the [MIT License](https://opensource.org/licenses/MIT) we add to all our work here at [Mapzen](https://mapzen.com/).
 
-### From the begining. Looking inside ```index.html```
+### Inside ```index.html```
 
 Let's jump an look inside the glue that holds all together to be serve to browsers, the ```index.html``` file.
 
