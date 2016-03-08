@@ -2,7 +2,7 @@
 
 This guide provides a case scenario of how to use [Tangram maps engine](https://github.com/tangrams/tangram) with other 3er party APIs.
 
-It's writed for an audience with some technically knowladge about Java Script, [OpenStreetMap](http://leafletjs.com/) data and [our vector tiles](https://mapzen.com/projects/vector-tiles). It is best if you have some previus experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! A good place to start is by looking arround the examples on [TangramPlay](https://mapzen.com/tangram/play/) and reading [Tangram Documentation](https://mapzen.com/documentation/tangram/) specially following this nice [walkthrought of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
+It's written for an audience with some technically knowledge about Java Script, [OpenStreetMap](http://leafletjs.com/) data and [our vector tiles](https://mapzen.com/projects/vector-tiles). It is best if you have some previous experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! A good place to start is by looking around the examples on [TangramPlay](https://mapzen.com/tangram/play/) and reading [Tangram Documentation](https://mapzen.com/documentation/tangram/) specially following this nice [walkthrough of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
 
 Also feel free to clone this repository in your computer, run it as a local server and make it your own. Tweaking and modifying is the best way to learn. How?
 
@@ -27,13 +27,13 @@ Take a moment to look the files inside this repository and how they relate to ea
 
 You will note:
 
-- There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responces to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
+- There is a ```main.js``` file that loads [Leaflet](http://leafletjs.com/) map and a [Tangram Layer](https://github.com/tangrams/tangram) on top of it. Also this file makes API calls to [OpenWeatherMap server](http://openweathermap.org/api) asking for weather station data every time the user finish moving the map. The responses to this calls are transformed into a [GeoJSON](http://geojson.org/) to be pass to [Tangram engine](https://github.com/tangrams/tangram) for rendered and display. 
 
 - The YAML file (```scene.yaml```) is a scene file that will tell Tangram.js how to style the map and make sense of the weather station data.
 
 - the HTML (```index.html```) is the glue that holds all together. Contains a ```<div>``` holder for the map, a minimal amount of CSS styling together with the calls to the Java Script files needed for this project.
 
-The rest of the files on this repository are not strictly necesary for this example.
+The rest of the files on this repository are not strictly necessary for this example.
 
 - The ```README.md``` is the guide you are reading.
 - The ```LICENSE``` file is the [MIT License](https://opensource.org/licenses/MIT) we add to all our work here at [Mapzen](https://mapzen.com/).
@@ -65,15 +65,15 @@ Although it was almost self explanatory let's do a brief recap of some of their 
 
 This is our tool box. The set of libraries (hosted somewhere else) that we are going to use to compose our map.
 
-In order, Which are they?
+Which are they? and what they do?
 
-- [Leaflet](http://leafletjs.com/) this leading open-source JavaScript library for interactive maps is probably one of our best friends. It was a big community arround it. Is easy to use, well documented and incredible flexible. Note how we are adding  both ```leaflet.js``` and ```leaflet.css``` of the version ```v1.0.0-beta.2```.
+- [Leaflet](http://leafletjs.com/) this leading open-source JavaScript library for interactive maps is probably one of our best friends. It was a big community around it. Is easy to use, well documented and incredible flexible. Note how we are adding  both ```leaflet.js``` and ```leaflet.css``` of the version ```v1.0.0-beta.2```.
 
 - [Michael Lawrence Evans's](https://github.com/mlevans) [Leaflet Hash plugin](https://github.com/mlevans/leaflet-hash) adds dynamic URL hashes to Leaflet maps. In other words will let us easily link users to specific map views.
 
 - [Tangram](https://mapzen.com/projects/tangram) ```0.5``` version. Our beloved and flexible browser-based mapping engine, designed for real-time rendering of 2D and 3D maps from vector tiles [Read more here](https://mapzen.com/documentation/tangram/).
 
-- [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a more powerful and flexible comming version of [```XMLRequest```](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). Because is not supported by all browsers yet  we are using [Github's polyfill](https://github.com/github/fetch) of it. Hopefully in a near future this will not be necesary.
+- [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) is a more powerful and flexible coming version of [```XMLRequest```](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest). Because is not supported by all browsers yet  we are using [Github's polyfill](https://github.com/github/fetch) of it. Hopefully in a near future this will not be necessary.
 
 #### Styling
 
@@ -106,11 +106,11 @@ The main concern here is to use all the space on your browser to display the map
     <script src="main.js"></script>
 ```
 
-As we said previusly the [Leaflet](http://leafletjs.com/) map with the [Tangram](https://mapzen.com/projects/tangram) layer is going to be loaded inside the ```<div>``` element with the ```map``` id. Where and when that happens inmediatly after the ```<div>``` is created the ```main.js``` script is loaded. Soon we will see what this  Java Script do.
+As we said previously the [Leaflet](http://leafletjs.com/) map with the [Tangram](https://mapzen.com/projects/tangram) layer is going to be loaded inside the ```<div>``` element with the ```map``` id. Where and when that happens immediately after the ```<div>``` is created the ```main.js``` script is loaded. Soon we will see what this  Java Script do.
 
-#### Some Mapzen's standar features
+#### Some Mapzen's standard features
 
-The rest of the HTML code in ```index.html``` are a bunch of standar lines we add to all our demos.
+The rest of the HTML code in ```index.html``` are a bunch of standard lines we add to all our demos.
 
 ```html
     <!-- Adding a script block to post message to the parent container (think iframed demos) -->
@@ -130,7 +130,7 @@ The rest of the HTML code in ```index.html``` are a bunch of standar lines we ad
 ```
 
 This lines keeps our maps looking good and healthy when they are loaded as ```<iframe>``` on other pages and blogs.
-The second block adds our fansy UI bug at the top of the map for easy share and a handy [Mapzen's Search](https://mapzen.com/projects/search?lng=-73.99240&lat=40.75530&zoom=12) pluggin to make the map easy to navigate.
+The second block adds our fancy UI bug at the top of the map for easy share and a handy [Mapzen's Search](https://mapzen.com/projects/search?lng=-73.99240&lat=40.75530&zoom=12) plugin to make the map easy to navigate.
 
 ### What's ```main.js``` doing?
 
@@ -175,7 +175,7 @@ map = (function () {
 
 This functions creates a [Leaflet](http://leafletjs.com/) instance in ```map``` with some basic interactivity set up (learn more about [Leaflet setup here](http://leafletjs.com/reference.html)) to den create leaflet [Tangram](https://mapzen.com/projects/tangram) Layer call ```layer```. This [Tangram](https://mapzen.com/projects/tangram) instance is not particular or special in any kind, we are just defining the proper attribution to: [OpenWeatherMap](http://openweathermap.org/) | [Tangram](https://mapzen.com/projects/tangram) | [OSM](http://www.openstreetmap.org/) and [Mapzen](https://mapzen.com/).
 
-What will make this [Tangram](https://mapzen.com/projects/tangram) instance special is the ```scene.yaml``` file. This is a very powerfull scene definition of the map. Will literary tell Tangram what data to load and how to interpret it. It's very very flexible and powerfull that's why we are saving that for the last... the big finnale. What's important to have in mind now is that all the setup loaded from the ```scene.yaml``` will be parse and stored into the ```layer.scene``` which you can see we will keep a handy link to it in ```window.scene```. 
+What will make this [Tangram](https://mapzen.com/projects/tangram) instance special is the ```scene.yaml``` file. This is a very powerful scene definition of the map. Will literary tell Tangram what data to load and how to interpret it. It's very very flexible and powerful that's why we are saving that for the last... the big finale. What's important to have in mind now is that all the setup loaded from the ```scene.yaml``` will be parse and stored into the ```layer.scene``` which you can see we will keep a handy link to it in ```window.scene```. 
 
 The final lines of this functions set a default position for the [Leaflet](http://leafletjs.com/) map (```[39.825, -98.170], 5``` A.K.A: United States of America seen from zoom level 5) together with an instance of [Michael Lawrence Evans's](https://github.com/mlevans) [Leaflet Hash plugin](https://github.com/mlevans/leaflet-hash) hooked to the [Leaflet](http://leafletjs.com/) ```map``` that will watch for hash path on your browser.
 
@@ -183,7 +183,7 @@ By the end of the function we set an event listener to when the page finish load
 
 #### Starting the party
 
-So as we were saying the when the page finish loading and all the content and the [Leaflet](http://leafletjs.com/) ```map``` and [Tangram](https://mapzen.com/projects/tangram) ```layer``` are initialize the event ```load``` will be trigger and the following function will be excecute.
+So as we were saying the when the page finish loading and all the content and the [Leaflet](http://leafletjs.com/) ```map``` and [Tangram](https://mapzen.com/projects/tangram) ```layer``` are initialize the event ```load``` will be trigger and the following function will be execute.
 
 ```js
 function init() {
@@ -202,13 +202,13 @@ function init() {
 
 Two things are happening here:
 
-- First we will listen the event ```moveend``` on [Leaflet](http://leafletjs.com/) ```map```. This event is trigger every time the user stop moving the map arround. Usually after dragging. There is a  small little trick there. we are using the ```debounce``` function for the callback. You will find the ```debounce``` function code by the end of the ```main.js``` file. Is a small function that prevents firing a function to many times. In this case will trigger ```update()``` only after a second. Why we are doing this? Well [OpenWeatherMaps](http://openweathermap.org/) is actually a payed service and their free API keys have a limit of 60 per minute. The ```debounce``` will prevent to trigger the call in the case the user is triggering the ```moveend``` event constantly.
+- First we will listen the event ```moveend``` on [Leaflet](http://leafletjs.com/) ```map```. This event is trigger every time the user stop moving the map around. Usually after dragging. There is a  small little trick there. we are using the ```debounce``` function for the callback. You will find the ```debounce``` function code by the end of the ```main.js``` file. Is a small function that prevents firing a function to many times. In this case will trigger ```update()``` only after a second. Why we are doing this? Well [OpenWeatherMaps](http://openweathermap.org/) is actually a payed service and their free API keys have a limit of 60 per minute. The ```debounce``` will prevent to trigger the call in the case the user is triggering the ```moveend``` event constantly.
 
-- ```layer.addTo(map)``` is an important line. That's the actual marrige between [Leaflet](http://leafletjs.com/) ```map``` and [Tangram](https://mapzen.com/projects/tangram) ```layer```. This line will add the [Tangram](https://mapzen.com/projects/tangram) ```layer``` into [Leaflet](http://leafletjs.com/) ```map``` instance. Now they will roll together.
+- ```layer.addTo(map)``` is an important line. That's the actual marriage between [Leaflet](http://leafletjs.com/) ```map``` and [Tangram](https://mapzen.com/projects/tangram) ```layer```. This line will add the [Tangram](https://mapzen.com/projects/tangram) ```layer``` into [Leaflet](http://leafletjs.com/) ```map``` instance. Now they will roll together.
 
 #### Updating content on Tangram
 
-Wellcome to what's probably the most crucial point of this tutorial. The following block will update the information comming from [OpenWeatherMap](http://openweathermap.org/) and pass it to [Tangram](https://mapzen.com/projects/tangram). If you have deal with API in the past you know that is not always so easy at may sound. Esentially we have to format the data between this to ends of the equation. Let's begin for looking to this block.
+Wellcome to what's probably the most crucial point of this tutorial. The following block will update the information coming from [OpenWeatherMap](http://openweathermap.org/) and pass it to [Tangram](https://mapzen.com/projects/tangram). If you have deal with API in the past you know that is not always so easy at may sound. Essentially we have to format the data between this to ends of the equation. Let's begin for looking to this block.
 
 ```js
 function update() {
@@ -273,9 +273,9 @@ Well let's review this in steps.
     url += '&appid=[API_KEY]';
 ```
 
-We start by asking [Leaflet](http://leafletjs.com/) ```map``` for the visible bounding box and using the coorners coordinates to construct an Http Request to [OpenWeatherMap](http://openweathermap.org/) server. To format it I'm following [this example of a call for the weather stations in an are](http://openweathermap.org/api_station). See that also I'm adding the current ```map``` zoom and the mandatory API KEY. 
+We start by asking [Leaflet](http://leafletjs.com/) ```map``` for the visible bounding box and using the corners coordinates to construct an Http Request to [OpenWeatherMap](http://openweathermap.org/) server. To format it I'm following [this example of a call for the weather stations in an are](http://openweathermap.org/api_station). See that also I'm adding the current ```map``` zoom and the mandatory API KEY. 
 
-A note about [OpenWeatherMap](http://openweathermap.org/) API KEY: is not a completely open service, so in this example we are using owr oun free key, which is very likely will run out of calls. To solve that you probably want to take your [free key here](http://openweathermap.org/appid)
+A note about [OpenWeatherMap](http://openweathermap.org/) API KEY: is not a completely open service, so in this example we are using our own free key, which is very likely will run out of calls. To solve that you probably want to take your [free key here](http://openweathermap.org/appid)
 
 2) Do the call 
 
@@ -326,11 +326,11 @@ For this we are using a function call ```MakePOIs()``` (that you can also find a
         }});
 ```
 
-Once the data is formated as a GeoJSON collection of [```Points``` Features](http://geojson.org/geojson-spec.html#point). Is pass to [Tangram](https://mapzen.com/projects/tangram) by seting a new data source using [```setDataSource()``` method](https://github.com/tangrams/tangram-docs/blob/gh-pages/pages/Javascript-API.md#setdatasource_string_-name-_object_-config) . is very good at reading GeoJSON format and will be hable to display this data according the ```scene.yaml``` file.
+Once the data is formatted as a GeoJSON collection of [```Points``` Features](http://geojson.org/geojson-spec.html#point). Is pass to [Tangram](https://mapzen.com/projects/tangram) by setting a new data source using [```setDataSource()``` method](https://github.com/tangrams/tangram-docs/blob/gh-pages/pages/Javascript-API.md#setdatasource_string_-name-_object_-config) . is very good at reading GeoJSON format and will be hable to display this data according the ```scene.yaml``` file.
 
 #### Some notes about the GeoJSON format process
 
-Before jumping in into the next station of this adventure (the ```scene.yaml``` file) is important we are familiar with the data we are passing to Tangram. Let's take a look to the function that format each eather station data.
+Before jumping in into the next station of this adventure (the ```scene.yaml``` file) is important we are familiar with the data we are passing to Tangram. Let's take a look to the function that format each weather station data.
 
 ```js
 function makePOIs(station) {
@@ -399,20 +399,20 @@ sources:
         url:  https://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=[API_KEY] 
 ```
 
-In this first block we define our [OpenStreetMap](http://www.openstreetmap.org/) vector data source call ```osm```. As you can see this data actually is comming form our servers, is our speciall tiled blend of [OpenStreetMap](http://www.openstreetmap.org/) data. [Here is a nice documentation](https://mapzen.com/documentation/vector-tiles/) about it if you want to learn more of it.
+In this first block we define our [OpenStreetMap](http://www.openstreetmap.org/) vector data source call ```osm```. As you can see this data actually is coming form our servers, is our special tiled blend of [OpenStreetMap](http://www.openstreetmap.org/) data. [Here is a nice documentation](https://mapzen.com/documentation/vector-tiles/) about it if you want to learn more of it.
 
-This data comming in [```TopoJSON```](https://en.wikipedia.org/wiki/GeoJSON#TopoJSON) another open GEO standar. The url is formated to load all the tiles in ```x```, ```y``` and ```z```. and also note that we are adding an api_key at the end. Our API keys are totally free and unlimited. Wonderfull right? Takes yours [here](https://mapzen.com/developers/sign_in) and replace the ```[API_KEY]``` holder with yours.
+This data coming in [```TopoJSON```](https://en.wikipedia.org/wiki/GeoJSON#TopoJSON) another open GEO standar. The url is formatted to load all the tiles in ```x```, ```y``` and ```z```. and also note that we are adding an api_key at the end. Our API keys are totally free and unlimited. Wonderfull right? Takes yours [here](https://mapzen.com/developers/sign_in) and replace the ```[API_KEY]``` holder with yours.
 
-This will be enought to make the map.
+This will be enough to make the map.
 
 But... Wait a minute! Where is the OpenWeaderMap data that we parse and format in JavaScript? 
 Nice observation! Well we don't really need it here. Because is not a file there is not point to load it, we are passing it directly from the ```main.js``` in each ```update()``` call. If you look up you will notice that we are setting that data source under the name ```stations``` and it contain a ```FeatureCollection``` of ```Points``` each one with the ```kind``` set in ```station```.
 
 #### Layers
 
-Inmediatly after defining the source we will make some rules to split the content of each tile in different ```layers```. 
+Immediately after defining the source we will make some rules to split the content of each tile in different ```layers```. 
 
-Most of the ```layers``` are preatty standar. You already have seen different rules similar to this ones:
+Most of the ```layers``` are pretty standard. You already have seen different rules similar to this ones:
 
 ```yaml
 layers:
@@ -495,9 +495,9 @@ layers:
                 color: [0.443, 0.434, 0.434]
 ```
 
-In few words we are drawing ```earth``` as ```poligons``` in a dark gray color, ```water``` as ```poligons``` in a light gray, different types of ```roads``` as ```lines``` with different configuration of ```order```, ```width``` and ```color```.
+In few words we are drawing ```earth``` as ```polygons``` in a dark gray color, ```water``` as ```polygons``` in a light gray, different types of ```roads``` as ```lines``` with different configuration of ```order```, ```width``` and ```color```.
 
-We are going to draw ```landuse``` specially with a stutle stripe pattern defined in the ```style``` call ```area```.
+We are going to draw ```landuse``` specially with a suttle stripe pattern defined in the ```style``` call ```area```.
 
 ```yaml
 styles:
@@ -520,9 +520,9 @@ styles:
                     color.a = stripes(st,pct*1.4)*.5;
 ```
 
-Which as you mix some functions from other styles like libraries, defines a glsl function call ```stripes``` and use it as a ```filter```. The nice detail about this effect is that vary the lenght of the stripe pattern depending the zoom level so you will see it more clearly while you zoom in. This animation transition is very visible between zoom 6 and 9.
+Which as you mix some functions from other styles like libraries, defines a glsl function call ```stripes``` and use it as a ```filter```. The nice detail about this effect is that vary the length of the stripe pattern depending the zoom level so you will see it more clearly while you zoom in. This animation transition is very visible between zoom 6 and 9.
 
-Up to here is a regular map. We are doing nothing with to visualize the weather station data. Let's start for analizing the layer for the weather ```stations```:
+Up to here is a regular map. We are doing nothing with to visualize the weather station data. Let's start for analyzing the layer for the weather ```stations```:
 
 ```yaml
 layers:
@@ -536,7 +536,7 @@ layers:
                     function() {
                         return feature.temp + '°';
                     }
-                # Suspend label collitions and repetition checking
+                # Suspend label collisions and repetition checking
                 collide: false
                 repeat_distance: 0px
                 # Show over all
@@ -557,19 +557,19 @@ layers:
                     }
 ```
 
-We start by seting the name of this layer to match the ```kind``` we want to filter from the data source ```stations```. Tangram does this automatically, but there are ways to force to pick up a specific kind if you prefere. For more information about this see [Styles Overview](https://mapzen.com/documentation/tangram/Styles-Overview/) and [layers](https://mapzen.com/documentation/tangram/layers/).
+We start by setting the name of this layer to match the ```kind``` we want to filter from the data source ```stations```. Tangram does this automatically, but there are ways to force to pick up a specific kind if you prefer. For more information about this see [Styles Overview](https://mapzen.com/documentation/tangram/Styles-Overview/) and [layers](https://mapzen.com/documentation/tangram/layers/).
 
 Then we specify that for this data we want to render two things: ```text``` label and a ```wind``` arrow.
 
 #### Drawing text
 
-Inside the ```text``` node which calls the native ```text``` render style we are going to fix the ```text_source``` to a JavaScript function. This function is going to populate the strings for each one of the displayed ```Points``` present on the GeoJSON file we constructed. The function in it self doesn't do to much, just add's the degree simbol ```°``` at the end of each temperature number. The rest of the rules are to set the style, like the ```font``` and ```offset```. We are turning the collition and repetition checking off. We actually want to see all the entries and we don't worry if the labels get overlaped.
+Inside the ```text``` node which calls the native ```text``` render style we are going to fix the ```text_source``` to a JavaScript function. This function is going to populate the strings for each one of the displayed ```Points``` present on the GeoJSON file we constructed. The function in it self doesn't do to much, just add's the degree symbol ```°``` at the end of each temperature number. The rest of the rules are to set the style, like the ```font``` and ```offset```. We are turning the collision and repetition checking off. We actually want to see all the entries and we don't worry if the labels get overlapped.
 
 ##### Visualizing data
 
-To display the wind we are going to take a more advance and less standar aproach. After all, we made it up to here and I don't want you to go home with enought to think about. 
+To display the wind we are going to take a more advance and less standard approach. After all, we made it up to here and I don't want you to go home with enough to think about. 
 
-We are going to make a special drawing ```style``` call ```wind``` wich we will se in detail soon. What is important to take about this section is that we are going to use the data in a way that allow us to make sense of it visually.  
+We are going to make a special drawing ```style``` call ```wind``` which we will se in detail soon. What is important to take about this section is that we are going to use the data in a way that allow us to make sense of it visually.  
 
 - First we are going to set the size of what will be our arrow to match the speed of the wind.
 
@@ -577,10 +577,10 @@ We are going to make a special drawing ```style``` call ```wind``` wich we will 
     size: function() { return 20. + Math.pow(feature.w_speed, 0.5) * 20.; }
 ```
 
-We do this with another JavaScript function the will return a size between 20 and 40 pixesl depending on the value of ```feature.w_speed```. ```feature``` relates to the GeoJSON Point structure we define in ```makePOIs()``` inside ```main.js```. 
-The use of ```Math.pow()``` is a way to make the transition of size non linear and visually more pleasent.
+We do this with another JavaScript function the will return a size between 20 and 40 pixels depending on the value of ```feature.w_speed```. ```feature``` relates to the GeoJSON Point structure we define in ```makePOIs()``` inside ```main.js```. 
+The use of ```Math.pow()``` is a way to make the transition of size non linear and visually more pleasant.
 
-- Second we will **encode** some of the rest of the weather station data into the color of the geometry. More precisly the ```temp``` (temperature) will be store in the **RED** channel, the ```humidity``` in **GREEN**, and the ```w_deg``` (wind degree) into the **BLUE**.
+- Second we will **encode** some of the rest of the weather station data into the color of the geometry. More precisely the ```temp``` (temperature) will be store in the **RED** channel, the ```humidity``` in **GREEN**, and the ```w_deg``` (wind degree) into the **BLUE**.
 
 ```yaml
     color: |
@@ -595,17 +595,17 @@ Because each color channel have a range between 0 and 255 we are encoding each v
 
 2) The humidity doesn't need so much treat as directly pass to the green channel.
 
-3) The wind degree probably represent the most complicated conversion. Because the range goes from 0 to 360, we need to normalize that range by divide it by the total (360) so we end up with a number from 0 to 1. Then we scale that range to the standar 0 to 255.
+3) The wind degree probably represent the most complicated conversion. Because the range goes from 0 to 360, we need to normalize that range by divide it by the total (360) so we end up with a number from 0 to 1. Then we scale that range to the standard 0 to 255.
 
 That's it! Our data is in the way to the GPU and into the fragment shader where we will draw something nice with it.
 
 #### Using GLSL to visualize data
 
-As you probably know, one of the most flexible features of Tangram is be hable to inject blocks of GLSL Shader code into the pipeline of a style. You can learn more about it here in the [Shaders overview](https://mapzen.com/documentation/tangram/Shaders-Overview/) of Tangram Documentations. If you are totaly new to GLSL Shaders we higly recomend you to check [The Book of Shaders](http://thebookofshaders.com/).
+As you probably know, one of the most flexible features of Tangram is be hable to inject blocks of GLSL Shader code into the pipeline of a style. You can learn more about it here in the [Shaders overview](https://mapzen.com/documentation/tangram/Shaders-Overview/) of Tangram Documentations. If you are totally new to GLSL Shaders we highly recommend you to check [The Book of Shaders](http://thebookofshaders.com/).
 
-So let's make some sense of this data and draw an arrow visualizing the flow of the wind and the temperature of it. To recap from last section the color was encoded into the RED, GREEN and BLUE channels on the CPU. Each channel with a range between 0 and 255, but inside the shader this color will be transform to a range from 0 to 1  per channel in the ```vec3``` name ```color```. This color comes with the geometry that was constructed in the previus section.
+So let's make some sense of this data and draw an arrow visualizing the flow of the wind and the temperature of it. To recap from last section the color was encoded into the RED, GREEN and BLUE channels on the CPU. Each channel with a range between 0 and 255, but inside the shader this color will be transform to a range from 0 to 1  per channel in the ```vec3``` name ```color```. This color comes with the geometry that was constructed in the previous section.
 
-Our first job to do here is to **decode** the values to something we can work with. The one that needs more retouch is the temperature witch we need to move it back to something that holds negative and positive numbers. We practically didn't encode the humidty so it makes more sense to do nothing with it so we can leave it normalized. With the direction of the wind
+Our first job to do here is to **decode** the values to something we can work with. The one that needs more retouch is the temperature witch we need to move it back to something that holds negative and positive numbers. We practically didn't encode the humidity so it makes more sense to do nothing with it so we can leave it normalized. With the direction of the wind
 
 ```glsl
     float temp = .5+color.r*.5;
@@ -613,7 +613,7 @@ Our first job to do here is to **decode** the values to something we can work wi
     float w_deg = color.b*PI;
 ```
 
-Not all the stations have a wind degree value, those cases return a perfect 0. Very unlikly for a wind to blow in perfect North direction so probably we can filter those out.
+Not all the stations have a wind degree value, those cases return a perfect 0. Very unlikely for a wind to blow in perfect North direction so probably we can filter those out.
 
 ```glsl
     // Ignore wind blowing at 0.0 degrees. Probably is an error
@@ -624,7 +624,7 @@ The rest of the code is a nice little arrow I'm drawing using some [distance fie
 
 Check an [example of it here](http://editor.thebookofshaders.com/?log=160307211846)
 
-With some little ajustments our arrows will be pointing in the right direction and correctly colored. The final style block look like this:
+With some little adjustments our arrows will be pointing in the right direction and correctly colored. The final style block look like this:
 
 ```yaml
     wind:
