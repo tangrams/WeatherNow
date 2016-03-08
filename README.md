@@ -23,7 +23,7 @@ To view the content on your browser, navigate to: [http://localhost:8000](http:/
  
 ### Before starting 
 
-Take a moment to look the folders inside this folder and how they relate to each other.
+Take a moment to look the files inside this repository and how they relate to each other.
 
 You will note:
 
