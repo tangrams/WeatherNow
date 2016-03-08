@@ -1,8 +1,8 @@
 ## Using private APIs on Tangram
 
-This is guide provides a case scenario of how to use [Tangram maps engine](https://github.com/tangrams/tangram) with other 3er party APIs.
+This guide provides a case scenario of how to use [Tangram maps engine](https://github.com/tangrams/tangram) with other 3er party APIs.
 
-It's writed for an audience with some technically knowladge about Java Script, [OpenStreetMap](http://leafletjs.com/), [our vector tiles](https://mapzen.com/projects/vector-tiles). We will also be asuming you already have some basic experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! The best place to start is looking arround the examples on [TangramPlay](https://mapzen.com/tangram/play/) and on [Tangram Documentation](https://mapzen.com/documentation/tangram/) following this nice [walkthrought of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
+It's writed for an audience with some technically knowladge about Java Script, [OpenStreetMap](http://leafletjs.com/) data and [our vector tiles](https://mapzen.com/projects/vector-tiles). We will also be asuming you already have some basic experience editing [Tangram's](https://github.com/tangrams/tangram) [```.yaml``` scene files](https://mapzen.com/documentation/tangram/Scene-file/). In case you don't, don't worry! The best place to start is looking arround the examples on [TangramPlay](https://mapzen.com/tangram/play/) and on [Tangram Documentation](https://mapzen.com/documentation/tangram/) following this nice [walkthrought of how to make a Tangram map](https://mapzen.com/documentation/tangram/walkthrough/#put-your-tangram-map-on-the-web). 
 
 Also feel free to clone this repository in your computer, run it as a local server and make it your own. Tweaking and modifying is the best way to learn. How?
 
