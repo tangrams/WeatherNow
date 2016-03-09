@@ -1,6 +1,4 @@
 ﻿# Author @patriciogv - 2016
-background:
-    color: #AFB1B1
 sources:
     osm:
         type: TopoJSON
@@ -242,4 +240,6 @@ styles:
                     } else {
                         color.a = 0.0;
                     }
-                    
+scene:
+    background:
+        color: #AFB1B1
