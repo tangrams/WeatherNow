@@ -1,5 +1,6 @@
 ﻿# Author @patriciogv - 2016
-
+background:
+    color: #AFB1B1
 sources:
     osm:
         type: TopoJSON
