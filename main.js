@@ -50,10 +50,10 @@ function update() {
     var bbox = map.getBounds();
 
     // Make the URL for OpenWeatherMaps API, asking for all stations inside that area (bounding box)
-    var url = 'http://api.openweathermap.org/data/2.5/box/station?cluster=true&cnt=200&format=json&bbox=';
+    var url = 'https://api.openweathermap.org/data/2.5/box/station?cluster=true&cnt=200&format=json&bbox=';
     url += bbox.getNorthWest().lng + ',' +bbox.getNorthWest().lat + ',' + bbox.getSouthEast().lng + ',' + bbox.getSouthEast().lat + ',';
     url += map.getZoom();
-    url += '&appid=6b75c0fa496c2aaf62eb52f8bcce7cd8';
+    url += '&appid=9b4694ea08d5d80229bac471bb1effdd';
 
     // Make the request and wait for the reply
     fetch(url)
